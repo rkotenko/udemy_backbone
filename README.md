@@ -1,0 +1,1 @@
+I have been playing around with Backbone on an off for a little while, but never really sat down to work through it all.  And I really want to grasp it well.  Udemy was having a new year discount so thought I might give this course a try.  I have been finding that I learn better with some structure.  
