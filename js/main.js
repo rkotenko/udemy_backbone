@@ -21,5 +21,5 @@ var Car = Vehicle.extend({
 
 var car = new Car({
     registrationNumber: 'XLI887',
-    color: 'Blue'
+    color: 'Red'
 });
