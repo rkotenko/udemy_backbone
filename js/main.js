@@ -1,11 +1,25 @@
 
-// In the first few sections, we do all the coding here.
-// Later, you'll see how to organize your code into separate
-// files and modules.
+// Mini project for the models section of the course
 
-var Animal = Backbone.Model.extend({
-    walk: function() {
-        console.log('Animal walking');
+var Vehicle = Backbone.Model.extend({
+    validate: function (attrs) {
+        if(!attrs.registrationNumber) {
+            return 'Registration number is required';
+        }
+    },
+    start: function() {
+        console.log('Vehicle started');
+    },
+    urlRoot: '/api/vehicles'
+});
+
+var Car = Vehicle.extend({
+    start: function () {
+        console.log('Car started with registration number ' + this.get('registrationNumber'));
     }
 });
 
+var car = new Car({
+    registrationNumber: 'XLI887',
+    color: 'Blue'
+});
