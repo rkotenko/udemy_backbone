@@ -14,16 +14,12 @@
         <script src="js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <div id="songs"></div>
+        <ul id="vehicles"></ul>
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
-		<script id="songTemplate" type="template">
-			<%= title %>
-			<button>Listen</button>
-			<% if (plays > 1000) { %>
-				<span class="popular">Popular</span>
-			<% } %>
+		<script id="vehicleTemplate" type="template">
+			<li class="vehicle"><%= regNum %><button class="delete">Delete</button></li>
 		</script>
         <script src="js/main.js"></script>
     </body>
