@@ -9,17 +9,18 @@ var VehicleView = Backbone.View.extend({
 	events: {
 		'click.delete': 'delete'
 	},
-	delete: function() {
-		// destroy the model and then remove the view
-		this.model.destroy();
-		this.remove();
-		console.log('removed a view');
-	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON())); // creates and inserts html using the template and a json version of the model data
 		return this;
 	}
 });
+
+VehicleView.prototype.delete =  function() {
+		// destroy the model and then remove the view
+		this.model.destroy();
+		this.remove();
+		console.log('removed a view');
+};
 
 var VehiclesView = Backbone.View.extend({
 	el: '#vehicles', // render this view at this html element,
