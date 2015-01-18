@@ -14,13 +14,19 @@
         <script src="js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
+        <div id="new_vehicle"></div>
         <ul id="vehicles"></ul>
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
-		<script id="vehicleTemplate" type="template">
-			<li class="vehicle"><%= regNum %><button class="delete">Delete</button></li>
+		<script id="vehicle_template" type="template">
+			<li class="vehicle"><%= regNum %> <button class="delete">Delete</button></li>
 		</script>
+		<script id="new_vehicle_template" type="template">
+            <label>Registration number: </label>
+            <input type="text" id="new_reg_number" />
+            <button id="add_new_vehicle" disabled>Add</button>
+        </script>
         <script src="js/main.js"></script>
     </body>
 </html>

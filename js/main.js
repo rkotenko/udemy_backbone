@@ -1,13 +1,51 @@
+var bus = _.extend({}, Backbone.Events);
+
 var Vehicle = Backbone.Model.extend();
 
 var Vehicles = Backbone.Collection.extend({
-	model: Vehicle
+	model: Vehicle,
+	initialize: function () {
+		// listen for the newVehicleAdded event to create a new item in the collection
+		this.listenTo(bus, 'newVehicleAdded', this.addVehicle)
+	},
+	addVehicle: function (regNum) {
+		this.add(new Vehicle({regNum: regNum})); // could also use create if we were saving to server
+	}
+});
+
+var NewVehicleView = Backbone.View.extend({
+	el: '#new_vehicle',
+	template: _.template($('#new_vehicle_template').html()),
+	events: {
+		'click #add_new_vehicle': 'addVehicle',
+		'keyup #new_reg_number': 'checkAddButton'
+	},
+	addVehicle: function () {
+		var newRegNumberInput = $('#new_reg_number');
+		// fire an addVehicle event, passing the registration number with it	
+		bus.trigger('newVehicleAdded', newRegNumberInput.val());
+		
+		// clear out the reg field and disable add
+		newRegNumberInput.val('');
+		$('#add_new_vehicle').prop('disabled', true);
+	},
+	// check if the field has text.  If so, enable the add button
+	checkAddButton: function () {
+		if($('#new_reg_number').val().length > 0) {
+			$('#add_new_vehicle').prop('disabled', false);
+		} else {
+			$('#add_new_vehicle').prop('disabled', true);	
+		}	
+	},
+	render: function () {
+		this.$el.html(this.template());
+	}
 });
 
 var VehicleView = Backbone.View.extend({
-	template: _.template($('#vehicleTemplate').html()),
+	template: _.template($('#vehicle_template').html()),
 	events: {
-		'click.delete': 'delete'
+		'click .delete': 'delete'
 	},
 	render: function() {
 		this.$el.html(this.template(this.model.toJSON())); // creates and inserts html using the template and a json version of the model data
@@ -27,7 +65,6 @@ var VehiclesView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.model, 'add', this.addOne);
 	},
-	// no corresponding button on page.  I created this just to play a bit with events.
 	addOne: function(vehicle) {
 		var vehicleView = new VehicleView({model: vehicle});
 		this.$el.append(vehicleView.render().$el);
@@ -47,5 +84,7 @@ var vehicles = new Vehicles([
 ]);
 
 var vehiclesView = new VehiclesView({model: vehicles}); // model is a collection, a collection of vehicles
+var newVehicleView = new NewVehicleView();
+newVehicleView.render();
 vehiclesView.render();
 
