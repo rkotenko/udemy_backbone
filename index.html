@@ -16,16 +16,18 @@
     <body>
         <nav id="nav">
             <ul>
-                <li data-url="albums">Albums</li>
-                <li data-url="artists">Artists</li>
-                <li data-url="genres">Genres</li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#cars">Cars</a></li>
+                <li><a href="#boats">Boats</a></li>
             </ul>
         </nav>
         <div id="container"></div>
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
-		
+		<script id="vehicle_template" type="text/template">
+		    <li><%= name %> - <%= regNum %></li>
+        </script>
         <script src="js/main.js"></script>
     </body>
 </html>

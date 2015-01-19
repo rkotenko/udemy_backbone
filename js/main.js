@@ -1,72 +1,69 @@
-var ArtistsView = Backbone.View.extend({
+var Vehicle = Backbone.Model.extend();
+
+var Vehicles = Backbone.Collection.extend({
+	model: Vehicle
+});
+
+var HomeView = Backbone.View.extend({
+	el: '#container',
 	render: function () {
-		this.$el.html('Artists view!');
-		
+		this.$el.html('Welcome!');
 		return this;
 	}
 });
 
-var AlbumsView = Backbone.View.extend({
+var VehicleView = Backbone.View.extend({
+	template: _.template($('#vehicle_template').html()),
 	render: function () {
-		this.$el.html('Albums view!');
-
+		this.$el.html(this.template(this.model.toJSON()));
 		return this;
 	}
 });
 
-var GenresView = Backbone.View.extend({
+var VehiclesView = Backbone.View.extend({
+	el: '#container',
 	render: function () {
-		this.$el.html('Genres view!');
-
-		return this;
+		var self = this;
+		this.$el.empty();
+		this.model.each(function (vehicle) {
+			var vehicleView = new VehicleView({model: vehicle});
+			self.$el.append(vehicleView.render().$el);
+		});
 	}
 });
 
-var AppRouter = Backbone.Router.extend({
+var cars = new Vehicles([
+	new Vehicle({name: 'Toyota', regNum: '123ABC'}),
+	new Vehicle({name: 'Ford', regNum: 'ABC345'}),
+	new Vehicle({name: 'Mazda', regNum: 'DEF123'})
+]);
+
+var boats = new Vehicles([
+	new Vehicle({name: 'Skipper', regNum: '123ABC'}),
+	new Vehicle({name: 'Sailboat', regNum: 'ABC345'}),
+	new Vehicle({name: 'Battleship', regNum: 'DEF123'})
+]);
+
+var Router = Backbone.Router.extend({
 	routes: {
-		"albums": 'viewAlbums',
-		"albums/:albumId": 'viewAlbumById',
-		"artists": 'viewArtists',
-		"genres": 'viewGenres',
-		"*other": "defaultRoute"
+		'home': 'goHome',
+		'cars': 'viewCars',
+		'boats': 'viewBoats'
 	},
-	
-	viewAlbumById: function (albumId) {
-		
+	goHome: function () {
+		var homeView = new HomeView();
+		homeView.render();
 	},
-	
-	viewAlbums: function () {
-		var view = new AlbumsView({el: '#container'});
-		view.render();
+	viewCars: function () {
+		var carsView = new VehiclesView({model: cars});
+		carsView.render();
 	},
-
-	viewArtists: function () {
-		var view = new ArtistsView({el: '#container'});
-		view.render();
-	},
-
-	viewGenres: function () {
-		var view = new GenresView({el: '#container'});
-		view.render();
-	},
-	
-	defaultRoutes: function () {
-		
+	viewBoats: function () {
+		var boatsView = new VehiclesView({model: boats});
+		boatsView.render();
 	}
 });
 
-var router = new AppRouter();
+var router = new Router();
 Backbone.history.start();
-
-var NavView = Backbone.View.extend({
-	events: {
-		'click': "onClick"
-	},
-	
-	onClick: function (e) {
-		var $li = $(e.target);
-		router.navigate($li.attr("data-url"), {trigger: true});
-	}
-});
-
-var navView = new NavView({el: "#nav"});
+router.navigate('home', {trigger: true});
