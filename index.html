@@ -14,13 +14,18 @@
         <script src="js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <ul id="vehicles"></ul>
+        <nav id="nav">
+            <ul>
+                <li data-url="albums">Albums</li>
+                <li data-url="artists">Artists</li>
+                <li data-url="genres">Genres</li>
+            </ul>
+        </nav>
+        <div id="container"></div>
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
-		<script id="vehicleTemplate" type="template">
-			<li class="vehicle"><%= regNum %><button class="delete">Delete</button></li>
-		</script>
+		
         <script src="js/main.js"></script>
     </body>
 </html>

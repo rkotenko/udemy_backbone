@@ -4,3 +4,8 @@ body {
 }
 
 body, p { font-size: 24px; }
+
+#nav ul li {
+	cursor: pointer;
+	color: blue;
+}
