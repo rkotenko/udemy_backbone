@@ -14,20 +14,7 @@
         <script src="js/lib/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
-        <nav id="nav">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#cars">Cars</a></li>
-                <li><a href="#boats">Boats</a></li>
-            </ul>
-        </nav>
-        <div id="container"></div>
-        <script src="js/lib/jquery-min.js"></script>
-        <script src="js/lib/underscore-min.js"></script>
-        <script src="js/lib/backbone-min.js"></script>
-		<script id="vehicle_template" type="text/template">
-		    <li><%= name %> - <%= regNum %></li>
-        </script>
-        <script src="js/main.js"></script>
+        <div id="songs"></div>
+        <script src="js/lib/require.js" data-main="js/main"></script>
     </body>
 </html>
