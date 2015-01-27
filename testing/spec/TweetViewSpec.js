@@ -27,11 +27,30 @@ describe('TweetView', function() {
 			expect(window.confirm).toHaveBeenCalled();
 		});
 		
-		it('should destroy the model if user clicks delete', function() {
+		it('should destroy the model if user confirms', function() {
 			spyOn(window, 'confirm').and.returnValue(true);
 			spyOn(tweet, 'destroy');
 			tweetView.$el.find('#delete').click();
 			expect(tweet.destroy).toHaveBeenCalled();
 		});
 	});
+	
+	describe('when clicking expand', function () {
+		it('should load the details if successful', function () {
+			spyOn(tweet, "fetch").and.callFake(function(options){
+				var data = {
+					retweets: 10,
+					favorites: 5
+				};
+				
+				tweet.set(data);
+				options.success();	
+			});
+			
+			tweetView.$el.find('#expand').click();
+			expect(tweetView.$el.find('.details')).toBeDefined();
+			expect(tweetView.$el.find('.details')).toContainText('10 retweets');
+		});
+	});
 });
+
