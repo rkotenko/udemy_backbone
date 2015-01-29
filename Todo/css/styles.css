@@ -5,6 +5,20 @@ body {
 
 body, p { font-size: 24px; }
 
+#todoList {
+	list-style: none;
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+	padding-left: 0;
+	margin-top: 0;
+}
+
+#todoList li {
+	padding: 5px;
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+
 .completed {
 	text-decoration: line-through;
 	color: gray;
